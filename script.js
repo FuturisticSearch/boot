@@ -22,7 +22,7 @@ $(document).ready(function () {
 					
 				 setTimeout(function () {
 					document.getElementById("redirectIframe").style.display = "block";
-					document.getElementById("redirectIframe").innerHTML = '<iframe id="fullScreenIframe" style="width: 100%; height: 100%; overflow: hidden;" src="https://pranx.com/fake-dos/" width="100" height="100" scrolling="no"></iframe>';
+					document.getElementById("redirectIframe").innerHTML = '<iframe id="fullScreenIframe" style="width: 100%; height: 100%; overflow: hidden;" src="https://fake-dos.pages.dev" width="100" height="100" scrolling="no"></iframe>';
 					document.getElementById("fullScreenIframe").contentWindow.focus();
 				 }, 2000);					
 			}
