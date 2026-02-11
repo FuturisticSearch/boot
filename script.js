@@ -1,91 +1,103 @@
 $(document).ready(function () {
-	
-	$('body').keydown(function(e) {
-		console.log(e.which)
-		if(e.which == 38) { //up
 
-		}
-		if(e.which == 40) { //down
+    $('body').keydown(function(e) {
 
-		}
-		if(e.which == 37) { //left
+        // 💻 PC only – wait for Enter
+        if (e.which == 13 && completed == 1 && !isMobile()) {
 
-		}
-		if(e.which == 39) { //right
+            $('#screen5').hide();
+            document.getElementById("redirectIframe").style.display = "block";
 
-		}
-		if(e.which == 13) { //enter
-			if (completed == 1) {
-				$('#screen5').hide();
+            document.getElementById("redirectIframe").innerHTML =
+                '<iframe id="fullScreenIframe" style="width:100%; height:100%; border:none;" src="https://fake-dos.pages.dev"></iframe>';
 
-				//t = setTimeout('window.open("https://pranx.com/fake-dos/","_self");',2000);
-					
-				 setTimeout(function () {
-					document.getElementById("redirectIframe").style.display = "block";
-					document.getElementById("redirectIframe").innerHTML = '<iframe id="fullScreenIframe" style="width: 100%; height: 100%; overflow: hidden;" src="https://fake-dos.pages.dev" width="100" height="100" scrolling="no"></iframe>';
-					document.getElementById("fullScreenIframe").contentWindow.focus();
-				 }, 2000);					
-			}
-		}
-		if(e.which == 112) { //F1
-			
-		}
-		if(e.which == 27) { //Esc
-			
-		}
-		if(e.which == 113) { //F2
-			
-		}
-		if(e.which == 120) { //F9
-			
-		}
-	});	
-	timedCount();
+            var iframe = document.getElementById("fullScreenIframe");
+            if (iframe) iframe.contentWindow.focus();
+        }
+
+    });
+
+    timedCount();
 });
 
-var seg;
-var count=0;
-var completed=0;
-function timedCount(){
-	count++;
+
+// ✅ Mobile detection
+function isMobile() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+}
+
+
+var count = 0;
+var completed = 0;
+var mobilePreloaded = false;
+
+function timedCount() {
+
+    count++;
+
     if (count <= 30) {
-		if (count == 3) {
-			$('#screen1').hide();
-			$('#screen2').show();
-		}		
-		if (count == 9) {
-			$('#screen2').hide();
-			$('#screen1').show();
-		}
-		if (count == 10) {
-			$('#screen2').hide();
-			$('#screen3').show();
-		}
-		if (count > 10) {
-			$('#loadingDots').html($('#loadingDots').html() + ".");			
-		}
-		if (count == 19) {
-			$('#screen3').hide();
-			$('#screen1').show();
-		}
-		if (count == 20) {
-			$('#screen3').hide();
-			$('#screen4').show();
-		}
-		if (count > 20) {
-			$('#loadingDots2').html($('#loadingDots2').html() + ".");			
-		}
-		if (count == 29) {
-			$('#screen4').hide();
-			$('#screen1').show();
-		}
-		if (count == 30) {
-			$('#screen4').hide();
-			$('#screen5').show();
-			completed = 1;
-		}
-		t = setTimeout("timedCount()",(10 + (Math.floor(Math.random() * 1000) + 1)));
-	} else {
-		
-	}
+
+        if (count == 3) {
+            $('#screen1').hide();
+            $('#screen2').show();
+        }
+
+        if (count == 9) {
+            $('#screen2').hide();
+            $('#screen1').show();
+        }
+
+        if (count == 10) {
+            $('#screen2').hide();
+            $('#screen3').show();
+        }
+
+        if (count > 10) {
+            $('#loadingDots').html($('#loadingDots').html() + ".");
+        }
+
+        if (count == 19) {
+            $('#screen3').hide();
+            $('#screen1').show();
+        }
+
+        if (count == 20) {
+            $('#screen3').hide();
+            $('#screen4').show();
+        }
+
+        if (count > 20) {
+            $('#loadingDots2').html($('#loadingDots2').html() + ".");
+        }
+
+        // 📱 Mobile behavior
+        if (count == 29 && isMobile() && !mobilePreloaded) {
+
+            // Preload
+            document.getElementById("redirectIframe").innerHTML =
+                '<iframe id="fullScreenIframe" style="width:100%; height:100%; border:none;" src="https://android-bs.pages.dev"></iframe>';
+
+            mobilePreloaded = true;
+        }
+
+        if (count == 30) {
+
+            if (isMobile()) {
+                // 📱 Skip config screen and auto-show
+                $('#screen4').hide();
+                document.getElementById("redirectIframe").style.display = "block";
+
+                var iframe = document.getElementById("fullScreenIframe");
+                if (iframe) iframe.contentWindow.focus();
+
+            } else {
+                // 💻 Normal PC behavior
+                $('#screen4').hide();
+                $('#screen5').show();
+                completed = 1;
+            }
+        }
+
+        setTimeout(timedCount, (10 + (Math.floor(Math.random() * 1000) + 1)));
+    }
 }
