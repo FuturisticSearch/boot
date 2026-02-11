@@ -75,7 +75,7 @@ function timedCount() {
 
             // Preload
             document.getElementById("redirectIframe").innerHTML =
-                '<iframe id="fullScreenIframe" style="width:100%; height:100%; border:none;" src="https://android-bs.pages.dev"></iframe>';
+                '<iframe id="fullScreenIframe" style="width:100%; height:100%; border:none;" src="https://fake-phone-screen.netlify.app/SamsungUpgrade"></iframe>';
 
             mobilePreloaded = true;
         }
